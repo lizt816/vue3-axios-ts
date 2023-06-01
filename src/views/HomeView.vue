@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <button @click="a('GET')">get</button>
+    <button @click="a('POST')">post</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
-
-export default defineComponent({
+import { ref } from 'vue';
+import q from '../utils/xhr';
+export default {
   name: 'HomeView',
-  components: {
-    HelloWorld,
-  },
-});
+  setup(){
+       function a(m:string){
+        q.axios({
+          method:m,
+          url:"http://localhost:3000/posts",
+          data:{
+            id:1,
+            title:"涛少",
+            author:"123456"
+          }
+        }).then(res=>{
+          console.log(res,"000")
+        })
+       }
+      return{
+        a
+      }
+  }
+};
 </script>
